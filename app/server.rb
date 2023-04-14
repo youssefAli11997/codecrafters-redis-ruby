@@ -6,14 +6,29 @@ class YourRedisServer
   end
 
   def start
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    puts("Logs from your program will appear here!")
-
-    # Uncomment this block to pass the first stage
     server = TCPServer.new(@port)
-    client = server.accept
-    client.puts "+PONG\r"
-    client.close
+
+    loop do
+      Thread.start(server.accept) do |client|
+        request = client.gets
+        puts request
+        commands = request.split '\n'
+        puts commands
+        commands.each do |command|
+          client.puts handle_command(command)
+        end
+        client.close
+      end
+    end
+  end
+
+  private
+  
+  def handle_command(command)
+    if command == 'ping' || command == 'PING'
+      "+PONG\r"
+    end
+    "- ERR unknown command"
   end
 end
 
