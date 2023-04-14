@@ -9,8 +9,9 @@ class YourRedisServer
   def start
     server = TCPServer.new(@port)
     loop do
-      client = server.accept
-      ClientHandler.handle(client)
+      Thread.start(server.accept) do |client|
+        ClientHandler.handle(client)
+      end
     end
   end
 end
