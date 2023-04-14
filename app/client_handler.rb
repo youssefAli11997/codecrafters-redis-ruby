@@ -1,4 +1,5 @@
 require_relative "command_handlers/ping"
+require_relative "command_handlers/echo"
 require_relative "command_handlers/unknown_command"
 require_relative "utils/resp_array_decoder"
 
@@ -22,6 +23,8 @@ class ClientHandler
         case command
         when 'PING'
             Ping.handle(client, command_array)
+        when 'ECHO'
+            Echo.handle(client, command_array)
         else
             UnknownCommand.handle(client, command_array)
         end
