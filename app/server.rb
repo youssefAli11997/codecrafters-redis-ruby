@@ -23,14 +23,9 @@ class YourRedisServer
   def read_resp_array(client)
     array_length = client.gets[1..-3].to_i # "*1\r\n", ignoring * and \r\n
     array = []
-
-    # p 'array_length'
-    # p array_length
     
     array_length.times do
       item = parse_line(client)
-      # p 'parsed line'
-      # p item
       array << item
     end
 
@@ -41,10 +36,7 @@ class YourRedisServer
     line = client.gets
     type = line[0]
     data = line[1..-3]
-
-    # p 'line'
-    # p line
-
+    
     case type
     when '$'
       # data is a bulk string length in this case
