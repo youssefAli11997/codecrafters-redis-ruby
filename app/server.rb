@@ -16,8 +16,10 @@ class YourRedisServer
   private
 
   def handle_client(client)
-    command_array = read_resp_array(client)
-    handle_command_array(client, command_array)
+    loop do
+      command_array = read_resp_array(client)
+      handle_command_array(client, command_array)
+    end
   end
 
   def read_resp_array(client)
@@ -36,7 +38,7 @@ class YourRedisServer
     line = client.gets
     type = line[0]
     data = line[1..-3]
-    
+
     case type
     when '$'
       # data is a bulk string length in this case
