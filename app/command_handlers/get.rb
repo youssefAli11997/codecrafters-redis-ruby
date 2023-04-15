@@ -15,7 +15,7 @@ module CommandHandlers
                     client.puts RespEncoder.encode("+#{value}")
                 end
             else
-                client.puts RespEncoder.encode("-wrong number of arguments for 'set' command")
+                client.puts RespEncoder.encode("-wrong number of arguments for 'get' command")
             end
         end
     end
