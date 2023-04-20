@@ -17,7 +17,7 @@ module Utils
                 data.to_i
             when '*'
                 # data is an array
-                # I may handle it later if there is a need to do so
+                # I may handle it later if there is a need
             end
         end
     end
