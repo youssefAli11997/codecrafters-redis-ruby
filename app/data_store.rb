@@ -5,7 +5,7 @@ class DataStore
     def self.set(key, value, expiry_after_milliseconds: nil)
         HASH[key] = value
         unless expiry_after_milliseconds.nil?
-            EXPIRY_AT[key] = Time.now + (expiry_after_milliseconds / 1000)
+            EXPIRY_AT[key] = Time.now + (expiry_after_milliseconds / 1000.0)
         end
         true
     end
